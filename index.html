@@ -1,196 +1,440 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GarudaEdukasi - Dashboard Interaktif</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-  
-  <style>
-    body {
-      background-color: #f4f6f9;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Pembelajaran Pancasila</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    display:flex;
+    background:#f4f6f9;
+    min-height:100vh;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:250px;
+    background:#1e293b;
+    color:white;
+    min-height:100vh;
+    position:fixed;
+    left:0;
+    top:0;
+}
+
+.logo{
+    padding:25px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.menu{
+    list-style:none;
+}
+
+.menu li{
+    padding:16px 20px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.menu li:hover{
+    background:#334155;
+}
+
+.menu i{
+    width:25px;
+}
+
+/* Content */
+
+.content{
+    margin-left:250px;
+    width:100%;
+    padding:30px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    margin-bottom:20px;
+}
+
+.card h2{
+    margin-bottom:15px;
+    color:#1e293b;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat-box{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.stat-box h3{
+    color:#2563eb;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:15px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.soal{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+label{
+    display:block;
+    margin-top:10px;
+}
+
+#hasil{
+    margin-top:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th,
+table td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+
+table th{
+    background:#2563eb;
+    color:white;
+}
+
+@media(max-width:768px){
+
+    .sidebar{
+        width:100%;
+        position:relative;
+        min-height:auto;
     }
-    .sidebar-container {
-      background-color: #ffffff;
-      border-right: 1px solid #e3e6f0;
-      min-height: calc(100vh - 56px);
-      padding: 20px;
+
+    .content{
+        margin-left:0;
     }
-    .sticky-sidebar {
-      position: -webkit-sticky;
-      position: sticky;
-      top: 20px;
+
+    body{
+        flex-direction:column;
     }
-    .nav-menu {
-      position: relative;
-      z-index: 10;
-    }
-    .nav-menu .nav-link {
-      color: #4e73df;
-      font-weight: 500;
-      padding: 12px 15px;
-      border-radius: 5px;
-      margin-bottom: 8px;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-    .nav-menu .nav-link:hover, .nav-menu .nav-link.active {
-      background-color: #f0f3ff;
-      color: #2e59d9;
-    }
-    /* Tombol Kuis Khusus di Sidebar */
-    .quiz-nav-btn {
-      background-color: #198754;
-      color: white !important;
-      font-weight: 600;
-      padding: 12px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .quiz-nav-btn:hover, .quiz-nav-btn.active {
-      background-color: #146c43;
-      box-shadow: 0 4px 12px rgba(25, 135, 84, 0.2);
-    }
-    /* Area Konten Kanan */
-    .content-container {
-      padding: 30px;
-    }
-    .content-card {
-      background: #ffffff;
-      border: none;
-      border-radius: 8px;
-      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.05);
-      min-height: 550px; /* Ditinggikan agar pas dengan frame kuis */
-    }
-    /* Mengatur frame kuis di sisi kanan agar responsif dan pas */
-    .quiz-iframe {
-      width: 100%;
-      height: 530px;
-      border: none;
-      display: block;
-    }
-    .hidden-content {
-      display: none !important;
-    }
-  </style>
+}
+
+</style>
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-    <div class="container-fluid px-4">
-      <a class="navbar-brand d-flex align-items-center" href="#">
-        <i class="bi bi-shield-fill-check me-2 text-success"></i>
-        <strong>GarudaEdukasi Portal</strong>
-      </a>
+<div class="sidebar">
+
+    <div class="logo">
+       <i class="fa-solid fa-house-laptop"></i> PANCASILA APP
     </div>
-  </nav>
 
-  <div class="container-fluid">
-    <div class="row">
-      
-      <aside class="col-xl-4 col-lg-5 sidebar-container">
-        <div class="sticky-sidebar">
-          
-          <h6 class="text-muted text-uppercase font-weight-bold mb-3 small">Modul Edukasi</h6>
-          <div class="nav flex-column nav-menu mb-4">
-            <div class="nav-link active" onclick="switchContent('pancasila-dasar', this)">
-              <i class="bi bi-book me-2"></i> Pengantar Nilai Pancasila
+    <ul class="menu">
+
+        <li onclick="showPage('dashboard')">
+            <i class="fas fa-home"></i> Dashboard
+        </li>
+
+        <li onclick="showPage('materi')">
+            <i class="fas fa-book"></i> Materi
+        </li>
+
+        <li onclick="showPage('kuis')">
+           <i class="fa-solid fa-file-circle-question"></i> Kuis
+        </li>
+
+        <li onclick="showPage('nilai')">
+            <i class="fas fa-chart-column"></i> Hasil Nilai
+        </li>
+
+        <li onclick="showPage('profil')">
+            <i class="fas fa-user"></i> Profil
+        </li>
+
+    </ul>
+
+</div>
+
+<div class="content">
+
+    <!-- DASHBOARD -->
+
+    <div id="dashboard" class="page active">
+
+        <h1>Dashboard</h1>
+
+        <br>
+
+        <div class="stats">
+
+            <div class="stat-box">
+                <h3>5</h3>
+                <p>Total Soal</p>
             </div>
-            <div class="nav-link" onclick="switchContent('butir-pengamalan', this)">
-              <i class="bi bi-journal-text me-2"></i> Butir-Butir Pengamalan
+
+            <div class="stat-box">
+                <h3>5</h3>
+                <p>Total Materi</p>
             </div>
-            <div class="nav-link" onclick="switchContent('sejarah-singkat', this)">
-              <i class="bi bi-hourglass-split me-2"></i> Sejarah Lahirnya Pancasila
+
+            <div class="stat-box">
+                <h3>Pancasila</h3>
+                <p>Topik</p>
             </div>
-          </div>
-          
-          <h6 class="text-muted text-uppercase font-weight-bold mb-2 small">Kuis Interaktif</h6>
-          <div class="nav flex-column nav-menu">
-            <div class="quiz-nav-btn d-flex align-items-center" onclick="switchContent('main-quiz-box', this)">
-              <i class="bi bi-lightning-charge-fill me-2"></i> <span>Live Quiz: Pancasila</span>
-            </div>
-          </div>
-          
-        </div>
-      </aside>
-
-      <main class="col-xl-8 col-lg-7 content-container">
-        <div class="card content-card p-4">
-          
-          <div id="pancasila-dasar" class="dynamic-content">
-            <h2 class="text-gray-800 mb-3">Memahami Nilai-Nilai Pancasila dalam Kehidupan Sehari-hari</h2>
-            <p class="text-muted small"><i class="bi bi-calendar3 me-1"></i> Diposkan pada 4 Juni 2026 oleh Administrator</p>
-            <hr>
-            <p>Pancasila bukan sekadar pajangan negara, melainkan fondasi utama bagaimana kita bertindak sebagai warga negara Indonesia. Dari sila pertama hingga sila kelima, setiap butirnya mengandung pedoman moral yang kaya.</p>
-            <p>Sebagai contoh, gotong royong yang merupakan cerminan dari sila ketiga dan kelima, membuktikan bahwa kebersamaan adalah kekuatan utama bangsa kita dalam menghadapi berbagai tantangan zaman.</p>
-            <p class="mb-0">Untuk menguji sejauh mana pemahaman Anda mengenai dasar negara kita, silakan klik menu <strong>Live Quiz: Pancasila</strong> di sidebar sebelah kiri!</p>
-          </div>
-
-          <div id="butir-pengamalan" class="dynamic-content hidden-content">
-            <h2 class="text-gray-800 mb-3">Butir-Butir Pengamalan Implementasi Pancasila</h2>
-            <p class="text-muted small"><i class="bi bi-calendar3 me-1"></i> Terakhir diperbarui: Juni 2026</p>
-            <hr>
-            <p>Implementasi nyata dari nilai Pancasila telah dirumuskan secara rinci ke dalam butir-butir pengamalan untuk mempermudah penerapannya:</p>
-            <ul>
-              <li><strong>Sila 1:</strong> Mengembangkan sikap saling menghormati kebebasan menjalankan ibadah sesuai dengan agama masing-masing.</li>
-              <li><strong>Sila 2:</strong> Mengakui persamaan derajat, persamaan hak, dan kewajiban asasi setiap manusia tanpa membeda-bedakan.</li>
-              <li><strong>Sila 3:</strong> Mampu menempatkan persatuan, kesatuan, serta kepentingan bangsa di atas kepentingan pribadi atau golongan.</li>
-              <li><strong>Sila 4:</strong> Tidak boleh memaksakan kehendak kepada orang lain saat melakukan musyawarah.</li>
-              <li><strong>Sila 5:</strong> Mengembangkan perbuatan yang luhur, yang mencerminkan sikap kekeluargaan dan kegotongroyongan.</li>
-            </ul>
-          </div>
-
-          <div id="sejarah-singkat" class="dynamic-content hidden-content">
-            <h2 class="text-gray-800 mb-3">Sejarah Singkat Perumusan Pancasila</h2>
-            <p class="text-muted small"><i class="bi bi-calendar3 me-1"></i> Kategori: Sejarah Kebangsaan</p>
-            <hr>
-            <p>Lahirnya Pancasila bermula dari pidato Ir. Soekarno pada tanggal <strong>1 Juni 1945</strong> dalam sidang Badan Penyelidik Usaha-usaha Persiapan Kemerdekaan Indonesia (BPUPKI).</p>
-            <p>Dalam pidato bersejarah tersebut, beliau menyampaikan gagasan mengenai lima dasar negara Indonesia merdeka yang dinamakan Pancasila. Setelah melalui pembahasan mendalam oleh Panitia Sembilan, rumusan final Pancasila yang sah kemudian tercantum dalam Pembukaan UUD 1945 alinea ke-4 yang disahkan pada tanggal 18 Agustus 1945.</p>
-          </div>
-
-          <div id="main-quiz-box" class="dynamic-content hidden-content">
-            <h2 class="text-gray-800 mb-3">Kuis Interaktif Pancasila</h2>
-            <p class="text-muted small"><i class="bi bi-lightning-charge-fill text-success me-1"></i> Selesaikan seluruh soal untuk melihat skor akhir Anda.</p>
-            <hr>
-            <iframe 
-              src="https://script.google.com/macros/s/AKfycbyX_OE1eoE7CzSqDhcwRwaEsWjeR88B5B_1oFOQhazKk5LGIVE6Hexdy4-okGUNaQaG/exec" 
-              class="quiz-iframe">
-            </iframe>
-          </div>
 
         </div>
-      </main>
 
     </div>
-  </div>
 
-  <script>
-    function switchContent(contentId, element) {
-      // 1. Sembunyikan semua blok konten di kanan
-      const contents = document.querySelectorAll('.dynamic-content');
-      contents.forEach(item => {
-        item.classList.add('hidden-content');
-      });
+    <!-- MATERI -->
 
-      // 2. Tampilkan konten/kuis yang dipilih
-      const targetContent = document.getElementById(contentId);
-      if (targetContent) {
-        targetContent.classList.remove('hidden-content');
-      }
+    <div id="materi" class="page">
 
-      // 3. Atur ulang status active semua jenis tombol di sidebar
-      const links = document.querySelectorAll('.nav-menu .nav-link, .nav-menu .quiz-nav-btn');
-      links.forEach(link => {
-        link.classList.remove('active');
-      });
+        <div class="card">
 
-      // 4. Aktifkan menu/tombol kuis yang sedang diklik
-      element.classList.add('active');
-    }
-  </script>
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <h2>Materi Pancasila</h2>
+
+            <ol>
+                <li>Ketuhanan Yang Maha Esa</li>
+                <li>Kemanusiaan yang Adil dan Beradab</li>
+                <li>Persatuan Indonesia</li>
+                <li>Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan</li>
+                <li>Keadilan Sosial bagi Seluruh Rakyat Indonesia</li>
+            </ol>
+
+        </div>
+
+    </div>
+
+    <!-- KUIS -->
+
+    <div id="kuis" class="page">
+
+        <h1>Kuis Pancasila</h1>
+
+        <br>
+
+        <div id="quiz-container"></div>
+
+        <button onclick="cekJawaban()">
+            Selesai
+        </button>
+
+    </div>
+
+    <!-- NILAI -->
+
+    <div id="nilai" class="page">
+
+        <div class="card">
+
+            <h2>Hasil Nilai</h2>
+
+            <div id="hasil">
+                Belum ada nilai.
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PROFIL -->
+
+    <div id="profil" class="page">
+
+        <div class="card">
+
+            <h2>Tentang Website</h2>
+
+            <p>
+                Website ini digunakan sebagai media pembelajaran dan evaluasi materi Pancasila.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function showPage(id){
+
+    document.querySelectorAll('.page')
+    .forEach(page=>{
+        page.classList.remove('active');
+    });
+
+    document.getElementById(id)
+    .classList.add('active');
+}
+
+const soal = [
+
+{
+pertanyaan:"Pancasila terdiri dari ... sila.",
+opsi:["3","4","5","6"],
+jawaban:"5"
+},
+
+{
+pertanyaan:"Sila pertama Pancasila adalah ...",
+opsi:[
+"Kemanusiaan yang Adil dan Beradab",
+"Persatuan Indonesia",
+"Ketuhanan Yang Maha Esa",
+"Keadilan Sosial"
+],
+jawaban:"Ketuhanan Yang Maha Esa"
+},
+
+{
+pertanyaan:"Lambang sila ketiga adalah ...",
+opsi:[
+"Bintang",
+"Pohon Beringin",
+"Padi dan Kapas",
+"Kepala Banteng"
+],
+jawaban:"Pohon Beringin"
+},
+
+{
+pertanyaan:"Bunyi sila kelima adalah ...",
+opsi:[
+"Persatuan Indonesia",
+"Keadilan Sosial bagi Seluruh Rakyat Indonesia",
+"Ketuhanan Yang Maha Esa",
+"Kemanusiaan yang Adil dan Beradab"
+],
+jawaban:"Keadilan Sosial bagi Seluruh Rakyat Indonesia"
+},
+
+{
+pertanyaan:"Contoh sila kedua adalah ...",
+opsi:[
+"Membantu teman",
+"Bolos sekolah",
+"Bertengkar",
+"Membuang sampah sembarangan"
+],
+jawaban:"Membantu teman"
+}
+
+];
+
+function tampilkanSoal(){
+
+let html="";
+
+soal.forEach((s,i)=>{
+
+html += `
+<div class="soal">
+
+<h3>${i+1}. ${s.pertanyaan}</h3>
+
+${s.opsi.map(o=>`
+<label>
+<input type="radio" name="soal${i}" value="${o}">
+${o}
+</label>
+`).join("")}
+
+</div>
+`;
+
+});
+
+document.getElementById("quiz-container").innerHTML = html;
+}
+
+function cekJawaban(){
+
+let skor=0;
+
+soal.forEach((s,i)=>{
+
+const pilih =
+document.querySelector(
+`input[name="soal${i}"]:checked`
+);
+
+if(pilih && pilih.value===s.jawaban){
+skor++;
+}
+
+});
+
+const nilai = Math.round(
+(skor/soal.length)*100
+);
+
+document.getElementById("hasil").innerHTML =
+`
+Skor : ${skor}/${soal.length}<br><br>
+Nilai : ${nilai}
+`;
+
+showPage("nilai");
+}
+
+tampilkanSoal();
+
+</script>
+
 </body>
 </html>
