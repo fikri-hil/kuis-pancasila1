@@ -11,7 +11,6 @@
     body {
       background-color: #f4f6f9;
     }
-    /* Mengatur sidebar agar memiliki tinggi penuh dan posisi melayang saat scroll */
     .sidebar-container {
       background-color: #ffffff;
       border-right: 1px solid #e3e6f0;
@@ -23,31 +22,38 @@
       position: sticky;
       top: 20px;
     }
-    /* Styling menu navigasi sidebar */
+    /* Memastikan elemen menu berada di lapisan atas dan bisa diklik */
+    .nav-menu {
+      position: relative;
+      z-index: 10;
+    }
     .nav-menu .nav-link {
       color: #4e73df;
       font-weight: 500;
-      padding: 10px 15px;
+      padding: 12px 15px;
       border-radius: 5px;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       transition: all 0.2s ease;
+      cursor: pointer; /* Mengubah kursor menjadi hand pointer */
     }
     .nav-menu .nav-link:hover, .nav-menu .nav-link.active {
       background-color: #f0f3ff;
       color: #2e59d9;
     }
-    /* Frame Kuis di dalam sidebar */
+    /* Box Kuis di Sidebar */
     .quiz-card {
       border: 1px solid #e3e6f0;
       border-radius: 8px;
       overflow: hidden;
+      margin-top: 15px;
     }
     .quiz-iframe {
       width: 100%;
-      height: 480px; /* Tinggi optimal untuk widget kuis sidebar */
+      height: 450px;
       border: none;
+      display: block;
     }
-    /* Area Konten Utama */
+    /* Area Konten Kanan */
     .content-container {
       padding: 30px;
     }
@@ -56,9 +62,11 @@
       border: none;
       border-radius: 8px;
       box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.05);
+      min-height: 400px;
     }
+    /* Utility class untuk menyembunyikan konten */
     .hidden-content {
-      display: none;
+      display: none !important;
     }
   </style>
 </head>
@@ -80,17 +88,17 @@
         <div class="sticky-sidebar">
           
           <h6 class="text-muted text-uppercase font-weight-bold mb-3 small">Modul Edukasi</h6>
-          <nav class="nav flex-column nav-menu mb-4">
-            <a class="nav-link active" href="#" onclick="switchContent('pancasila-dasar', this)">
+          <div class="nav flex-column nav-menu mb-4">
+            <div class="nav-link active" onclick="switchContent('pancasila-dasar', this)">
               <i class="bi bi-book me-2"></i> Pengantar Nilai Pancasila
-            </a>
-            <a class="nav-link" href="#" onclick="switchContent('butir-pengamalan', this)">
+            </div>
+            <div class="nav-link" onclick="switchContent('butir-pengamalan', this)">
               <i class="bi bi-journal-text me-2"></i> Butir-Butir Pengamalan
-            </a>
-            <a class="nav-link" href="#" onclick="switchContent('sejarah-singkat', this)">
+            </div>
+            <div class="nav-link" onclick="switchContent('sejarah-singkat', this)">
               <i class="bi bi-hourglass-split me-2"></i> Sejarah Lahirnya Pancasila
-            </a>
-          </nav>
+            </div>
+          </div>
           
           <h6 class="text-muted text-uppercase font-weight-bold mb-2 small">Kuis Interaktif</h6>
           <div class="card quiz-card shadow-sm">
@@ -99,4 +107,81 @@
             </div>
             <div class="card-body p-0">
               <iframe 
-                src="https://script.google.com/macros/s/AKfycbyX_OE1eoE7CzSqDhcwRwaEsWjeR88B5B_1oFOQhazKk5LGIVE6Hexdy4-okGUNaQaG/exec"
+                src="https://script.google.com/macros/s/AKfycbyX_OE1eoE7CzSqDhcwRwaEsWjeR88B5B_1oFOQhazKk5LGIVE6Hexdy4-okGUNaQaG/exec" 
+                class="quiz-iframe"
+                scrolling="no">
+              </iframe>
+            </div>
+          </div>
+          
+        </div>
+      </aside>
+
+      <main class="col-xl-8 col-lg-7 content-container">
+        <div class="card content-card p-4">
+          
+          <div id="pancasila-dasar" class="dynamic-content">
+            <h2 class="text-gray-800 mb-3">Memahami Nilai-Nilai Pancasila dalam Kehidupan Sehari-hari</h2>
+            <p class="text-muted small"><i class="bi bi-calendar3 me-1"></i> Diposkan pada 4 Juni 2026 oleh Administrator</p>
+            <hr>
+            <p>Pancasila bukan sekadar pajangan negara, melainkan fondasi utama bagaimana kita bertindak sebagai warga negara Indonesia. Dari sila pertama hingga sila kelima, setiap butirnya mengandung pedoman moral yang kaya.</p>
+            <p>Sebagai contoh, gotong royong yang merupakan cerminan dari sila ketiga dan kelima, membuktikan bahwa kebersamaan adalah kekuatan utama bangsa kita dalam menghadapi berbagai tantangan zaman.</p>
+            <p class="mb-0">Untuk menguji sejauh mana pemahaman Anda mengenai dasar negara kita, silakan langsung mencoba tantangan kuis interaktif yang tersedia di <strong>sisi sidebar kiri halaman ini!</strong></p>
+          </div>
+
+          <div id="butir-pengamalan" class="dynamic-content hidden-content">
+            <h2 class="text-gray-800 mb-3">Butir-Butir Pengamalan Implementasi Pancasila</h2>
+            <p class="text-muted small"><i class="bi bi-calendar3 me-1"></i> Terakhir diperbarui: Juni 2026</p>
+            <hr>
+            <p>Implementasi nyata dari nilai Pancasila telah dirumuskan secara rinci ke dalam butir-butir pengamalan untuk mempermudah penerapannya:</p>
+            <ul>
+              <li><strong>Sila 1:</strong> Mengembangkan sikap saling menghormati kebebasan menjalankan ibadah sesuai dengan agama masing-masing.</li>
+              <li><strong>Sila 2:</strong> Mengakui persamaan derajat, persamaan hak, dan kewajiban asasi setiap manusia tanpa membeda-bedakan.</li>
+              <li><strong>Sila 3:</strong> Mampu menempatkan persatuan, kesatuan, serta kepentingan bangsa di atas kepentingan pribadi atau golongan.</li>
+              <li><strong>Sila 4:</strong> Tidak boleh memaksakan kehendak kepada orang lain saat melakukan musyawarah.</li>
+              <li><strong>Sila 5:</strong> Mengembangkan perbuatan yang luhur, yang mencerminkan sikap kekeluargaan dan kegotongroyongan.</li>
+            </ul>
+          </div>
+
+          <div id="sejarah-singkat" class="dynamic-content hidden-content">
+            <h2 class="text-gray-800 mb-3">Sejarah Singkat Perumusan Pancasila</h2>
+            <p class="text-muted small"><i class="bi bi-calendar3 me-1"></i> Kategori: Sejarah Kebangsaan</p>
+            <hr>
+            <p>Lahirnya Pancasila bermula dari pidato Ir. Soekarno pada tanggal <strong>1 Juni 1945</strong> dalam sidang Badan Penyelidik Usaha-usaha Persiapan Kemerdekaan Indonesia (BPUPKI).</p>
+            <p>Dalam pidato bersejarah tersebut, beliau menyampaikan gagasan mengenai lima dasar negara Indonesia merdeka yang dinamakan Pancasila. Setelah melalui pembahasan mendalam oleh Panitia Sembilan, rumusan final Pancasila yang sah kemudian tercantum dalam Pembukaan UUD 1945 alinea ke-4 yang disahkan pada tanggal 18 Agustus 1945.</p>
+          </div>
+
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    function switchContent(contentId, element) {
+      // 1. Sembunyikan seluruh blok konten di kanan terlebih dahulu
+      const contents = document.querySelectorAll('.dynamic-content');
+      contents.forEach(item => {
+        item.classList.add('hidden-content');
+      });
+
+      // 2. Tampilkan satu konten spesifik yang ditargetkan
+      const targetContent = document.getElementById(contentId);
+      if (targetContent) {
+        targetContent.classList.remove('hidden-content');
+      }
+
+      // 3. Atur ulang status visual tombol menu di sidebar
+      const links = document.querySelectorAll('.nav-menu .nav-link');
+      links.forEach(link => {
+        link.classList.remove('active');
+      });
+
+      // 4. Aktifkan menu yang baru saja diklik
+      element.classList.add('active');
+    }
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
