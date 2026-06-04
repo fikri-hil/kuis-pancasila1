@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Edukasi Pancasila</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Mengatur tinggi iframe kuis agar pas di sidebar */
+    .quiz-iframe {
+      width: 100%;
+      height: 550px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .sticky-sidebar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 20px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">GarudaEdukasi</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row g-4">
+      
+      <main class="col-lg-8">
+        <article class="card p-4 shadow-sm mb-4">
+          <h1 class="mb-3">Memahami Nilai-Nilai Pancasila dalam Kehidupan Sehari-hari</h1>
+          <p class="text-muted">Diposkan pada 4 Juni 2026 oleh Admin</p>
+          <hr>
+          <p>Pancasila bukan sekadar pajangan negara, melainkan fondasi utama bagaimana kita bertindak sebagai warga negara Indonesia. Dari sila pertama hingga sila kelima, setiap butirnya mengandung pedoman moral yang kaya.</p>
+          <p>Sebagai contoh, gotong royong yang merupakan cerminan dari sila ketiga dan kelima, membuktikan bahwa kebersamaan adalah kekuatan utama bangsa kita dalam menghadapi berbagai tantangan zaman.</p>
+          <p>Untuk menguji sejauh mana pemahaman Anda mengenai dasar negara kita, silakan coba tantangan kuis interaktif yang tersedia di sisi samping halaman ini!</p>
+        </article>
+      </main>
+
+      <aside class="col-lg-4">
+        <div class="sticky-sidebar">
+          <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white font-weight-bold">
+              🔥 Uji Kemampuan Anda!
+            </div>
+            <div class="card-body p-2">
+              <iframe src="https://script.google.com/macros/s/AKfycbxcyH1GVDi7kh8x1FSASrZMYJQDwKsKFsvby5QinhGEd4rpU3I4U0cwSbuNQWFXHoxN/exec" class="quiz-iframe" scrolling="no"></iframe>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p class="mb-0">&copy; 2026 GarudaEdukasi. All Rights Reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
